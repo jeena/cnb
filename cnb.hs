@@ -144,13 +144,16 @@ action "list" (Message n _ _) = do
   return () 
 action "leave" (Message n _ _) = do
   leave ("Fuck you " ++ n ++ ", I'm quitting!")
+action "implode" (Message n _ _) = do
+    leave ("whoooooooshhhhh ...")
+action "explode" (Message n _ _) = do
+    leave ("KaaboooOOOOOooooommm ...")
 action "help" (Message n _ _) = help n
 action s (Message n _ _) = do
   case (length s) of
     0 -> privmsg "What?!"
     _ -> privmsg (n ++ " is boooring! What the fuck do you want me to do with "
                     ++ (show s) ++ "?")
-  
   
 rest :: String -> String -> String
 rest k s = drop (length k + 1) s
