@@ -212,7 +212,7 @@ trim = f . f
    
 help :: Nick -> MyStateM ()
 help n = do
-  privmsg "Hilf dir selbst, dann hilft dir Gott."
+  privmsg "Heaven helps those who help themselves."
   msg ("usage:") n
   msg (" " ++ nick ++ ": help -> this help") n
   msg (" " ++ nick ++ ": add regex~value -> adds a value for a regex") n
