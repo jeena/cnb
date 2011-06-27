@@ -7,10 +7,10 @@ import Control.Monad.State
 import Text.Regex.Posix
 import Data.Char (isSpace)
 
-server  = "irc.epd-me.net"
+server  = "irc.freenode.net"
 port    = 6667
-chan    = "#selfhtml"
-nick    = "cnb"
+chan    = "#monaden"
+nick    = "cnbot"
 rname   = "clynx Nerv-Bot"
 
 type Nick = String
@@ -219,6 +219,9 @@ help n = do
   msg (" " ++ nick ++ ": delete regex -> deletes the regex-value pair") n
   msg (" " ++ nick ++ ": list -> lists all available regex-value pairs") n
   msg (" " ++ nick ++ ": leave -> bot leaves the chanel") n
+  msg (" " ++ nick ++ ": explode -> bot leaves the chanel") n
+  msg (" " ++ nick ++ ": implode -> bot leaves the chanel") n
+  
   msg (" /invite " ++ nick ++ " " ++ chan ++ " -> invites the bot back to the chanel") n
   
 startStore :: Store
