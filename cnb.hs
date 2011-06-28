@@ -7,11 +7,11 @@ import Control.Monad.State
 import Text.Regex.Posix
 import Data.Char (isSpace)
 
-server  = "irc.freenode.net"
+server  = "irc.epd-me.net"
 port    = 6667
-chan    = "#monaden"
-nick    = "cnbot"
-rname   = "clynx Nerv-Bot"
+chan    = "#selfhtml"
+nick    = "anna"
+rname   = "Boten Anna"
 
 type Nick = String
 data Type = Kick | Invite | Privmsg | Unknown
@@ -100,7 +100,7 @@ listen = forever $ do
     if ping s
       then pong s
       else do eval (parse s)
-    liftIO $ putStrLn s
+    -- liftIO $ putStrLn s
     return ()
   where
     forever a = a >> forever a
@@ -149,11 +149,11 @@ action "implode" (Message n _ _) = do
 action "explode" (Message n _ _) = do
     leave ("KaaboooOOOOOooooommm ...")
 action "help" (Message n _ _) = help n
+action "cleanup" (Message n _ _) = cleanup n
 action s (Message n _ _) = do
   case (length s) of
     0 -> privmsg "What?!"
-    _ -> privmsg (n ++ " is boooring! What the fuck do you want me to do with "
-                    ++ (show s) ++ "?")
+    _ -> privmsg ("Fuck you " ++ n ++ "! " ++ s ++ " your self!")
   
 rest :: String -> String -> String
 rest k s = drop (length k + 1) s
@@ -218,13 +218,29 @@ help n = do
   msg (" " ++ nick ++ ": add regex~value -> adds a value for a regex") n
   msg (" " ++ nick ++ ": delete regex -> deletes the regex-value pair") n
   msg (" " ++ nick ++ ": list -> lists all available regex-value pairs") n
+  msg (" " ++ nick ++ ": cleanup -> restores the list to the default") n  
   msg (" " ++ nick ++ ": leave -> bot leaves the chanel") n
   msg (" " ++ nick ++ ": explode -> bot leaves the chanel") n
   msg (" " ++ nick ++ ": implode -> bot leaves the chanel") n
-  
   msg (" /invite " ++ nick ++ " " ++ chan ++ " -> invites the bot back to the chanel") n
+  
+cleanup :: Nick -> MyStateM ()
+cleanup n = do
+  putStore startStore
+  privmsg "Ok, I've cleaned up the bloody list."
   
 startStore :: Store
 startStore = [
-    ("jump", "The quick brown clynx jumps over the lazy oak.")
+    ("^jump$", "The quick brown clynx jumps over the lazy oak."),
+    ("^ok$", "ok"),
+    ("(J|j)eena,? arbeitest du", "Jeena, sag doch mal."),
+    (nick, "Keine ungefragten queries!"),
+    ("(php|PHP)", "'PHP' <- Ha ha!</nelson>"),
+    ("(E|e)rlang", "Oh yeah!"),
+    ("(H|h)askell", "Ich bin in Haskell geschrieben."),
+    ("danke", "np"),
+    ("^np$", "schmück dich nicht mit fremden Federn."),
+    ("^hehe$", "was gibt es da zu lachen?")
   ]
+  
+-- ü
