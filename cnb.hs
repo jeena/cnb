@@ -240,8 +240,8 @@ startStore :: Store
 startStore = [
     ("^jump$", "The quick brown clynx jumps over the lazy oak."),
     ("^ok$", "ok"),
-    ("(J|j)eena,? arbeitest du", "Jeena, sag doch mal."),
-    -- (nick, "Keine ungefragten queries!"),
+    ("(J|j)eena: arbeitest du?", "Jeena, sag doch mal."),
+    -- (nick, "Nur weil ich eine Frau bin musst du mich noch lange nicht anmachen!"),
     ("(php|PHP)", "'PHP' <- Ha ha!</nelson>"),
     ("(E|e)rlang", "Oh yeah!"),
     ("(H|h)askell", "Ich bin in Haskell geschrieben."),
