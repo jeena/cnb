@@ -2,6 +2,7 @@ import Network
 import System.IO
 import Text.Printf
 import Data.List
+import Data.Char
 import System.Exit
 import Control.Monad.State
 import Text.Regex.Posix
@@ -153,7 +154,13 @@ action "cleanup" (Message n _ _) = cleanup n
 action s (Message n _ _) = do
   case (length s) of
     0 -> privmsg "What?!"
-    _ -> privmsg ("Fuck you " ++ n ++ "! " ++ s ++ " your self!")
+    _ -> privmsg ("Fuck you " ++ n ++ "! " ++
+                  sanit (capitalize s) ++ " yourself!")
+  where
+    capitalize (x:xs) = toUpper x : xs
+    sanit xs = case [(last xs)] `isInfixOf` ".:!?" of
+                    True -> take (length xs - 1) xs
+                    False -> xs
   
 rest :: String -> String -> String
 rest k s = drop (length k + 1) s
@@ -234,7 +241,7 @@ startStore = [
     ("^jump$", "The quick brown clynx jumps over the lazy oak."),
     ("^ok$", "ok"),
     ("(J|j)eena,? arbeitest du", "Jeena, sag doch mal."),
-    (nick, "Keine ungefragten queries!"),
+    -- (nick, "Keine ungefragten queries!"),
     ("(php|PHP)", "'PHP' <- Ha ha!</nelson>"),
     ("(E|e)rlang", "Oh yeah!"),
     ("(H|h)askell", "Ich bin in Haskell geschrieben."),
