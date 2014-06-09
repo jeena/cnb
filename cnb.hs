@@ -120,7 +120,7 @@ evalPrivmsg (Just m@(Message n _ te)) = do
   let pat = nick ++ ":(.*)"
   let r = te =~ pat :: [[String]]
   case r of
-    [] -> do m <- match te
+    [] -> do m <- Main.match te
              case m of
                Just v -> privmsg v
                Nothing -> return ()
@@ -144,7 +144,7 @@ action "list" (Message n _ _) = do
   mapM (\(k,v) -> msg (k ++ "~" ++ v) n) st
   return () 
 action "leave" (Message n _ _) = do
-  leave ("Fuck you " ++ n ++ ", I'm quitting!")
+  leave ("Ok " ++ n ++ ", I'm quitting!")
 action "implode" (Message n _ _) = do
     leave ("whoooooooshhhhh ...")
 action "explode" (Message n _ _) = do
