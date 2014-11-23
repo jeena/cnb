@@ -1,1 +1,12 @@
-A simple IRC bot.
+A simple IRC bot which can be invited and kicked from a chanel
+and it can also be programmed with simple regexes by the users
+in the chanel.
+
+You need to install regex-posix:
+
+	cabal install regex-posix
+
+And then a simple:
+
+make
+./cnb
