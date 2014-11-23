@@ -81,8 +81,8 @@ deleteKeyValue key = do
   let sn = [(k,v) | (k,v) <- s, k /= key]
   putStore (sn)
   
-match :: String -> MyStateM (Maybe Value)
-match s = do
+matches :: String -> MyStateM (Maybe Value)
+matches s = do
   st <- getStore
   case (find (\(key, value) -> s =~ key) st) of
     Nothing -> return Nothing
@@ -120,7 +120,7 @@ evalPrivmsg (Just m@(Message n _ te)) = do
   let pat = nick ++ ":(.*)"
   let r = te =~ pat :: [[String]]
   case r of
-    [] -> do m <- match te
+    [] -> do m <- matches te
              case m of
                Just v -> privmsg v
                Nothing -> return ()
