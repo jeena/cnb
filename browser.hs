@@ -20,3 +20,15 @@ getTweet url = do
 	case body of
 		empty -> return Nothing
 		_ -> return Just (L.unpack body)
+
+
+module Main where
+
+import qualified Data.ByteString as BS
+import Data.Char
+
+main :: IO ()
+main = do
+    bs <- BS.readFile "haskelltest.hs"
+    let w8 = BS.unpack bs
+    putStrLn $ map (chr . fromIntegral) w8
